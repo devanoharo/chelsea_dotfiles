@@ -1,0 +1,286 @@
+** Message: environement.vala:58: Exporting primary_variable
+** Message: environement.vala:59: desktop_environnement XDG_CURRENT_DESKTOP
+** Message: environement.vala:150: confir_dirs is null, export : /etc/xdg
+** Message: environement.vala:184: Exporting XDG_CONFIG_DIRS
+** Message: environement.vala:191: data_dirs is null, export : /usr/local/share:/usr/share:/usr/share/gdm:/var/lib/menu-xdg
+** Message: environement.vala:225: Exporting XDG_DATA_DIRS
+** Message: utils.vala:79: Config system location : /etc/xdg/lxsession/LXDE
+** Message: utils.vala:85: System system path location : (null)
+** Message: utils.vala:89: Final file used : (null)
+
+(lxsession:10852): GLib-CRITICAL **: g_key_file_load_from_file: assertion 'file != NULL' failed
+** Message: settings.vala:540: Key file does not have group “GTK”
+** Message: settings.vala:540: Key file does not have group “Session”
+** Message: settings.vala:540: Key file does not have group “Session”
+** Message: settings.vala:540: Key file does not have group “Session”
+** Message: settings.vala:540: Key file does not have group “Session”
+** Message: settings.vala:540: Key file does not have group “Session”
+** Message: settings.vala:540: Key file does not have group “Session”
+** Message: settings.vala:540: Key file does not have group “Session”
+** Message: settings.vala:540: Key file does not have group “Session”
+** Message: settings.vala:540: Key file does not have group “Session”
+** Message: settings.vala:540: Key file does not have group “Session”
+** Message: settings.vala:540: Key file does not have group “Session”
+** Message: settings.vala:540: Key file does not have group “Session”
+** Message: settings.vala:540: Key file does not have group “Session”
+** Message: settings.vala:540: Key file does not have group “Session”
+** Message: settings.vala:540: Key file does not have group “Session”
+** Message: settings.vala:540: Key file does not have group “Session”
+** Message: settings.vala:540: Key file does not have group “Session”
+** Message: settings.vala:540: Key file does not have group “Session”
+** Message: settings.vala:540: Key file does not have group “Session”
+** Message: settings.vala:540: Key file does not have group “Session”
+** Message: settings.vala:540: Key file does not have group “Session”
+** Message: settings.vala:540: Key file does not have group “Session”
+** Message: settings.vala:540: Key file does not have group “Session”
+** Message: settings.vala:540: Key file does not have group “Session”
+** Message: settings.vala:540: Key file does not have group “Session”
+** Message: settings.vala:540: Key file does not have group “Session”
+** Message: settings.vala:540: Key file does not have group “Session”
+** Message: settings.vala:540: Key file does not have group “Session”
+** Message: settings.vala:540: Key file does not have group “Session”
+** Message: settings.vala:540: Key file does not have group “Session”
+** Message: settings.vala:540: Key file does not have group “Session”
+** Message: settings.vala:540: Key file does not have group “Session”
+** Message: settings.vala:540: Key file does not have group “Session”
+** Message: settings.vala:540: Key file does not have group “Session”
+** Message: settings.vala:540: Key file does not have group “Session”
+** Message: settings.vala:540: Key file does not have group “Session”
+** Message: settings.vala:540: Key file does not have group “Session”
+** Message: settings.vala:540: Key file does not have group “Session”
+** Message: settings.vala:540: Key file does not have group “Session”
+** Message: settings.vala:540: Key file does not have group “Session”
+** Message: settings.vala:540: Key file does not have group “Session”
+** Message: settings.vala:540: Key file does not have group “Session”
+** Message: settings.vala:540: Key file does not have group “Session”
+** Message: settings.vala:540: Key file does not have group “Session”
+** Message: settings.vala:540: Key file does not have group “Session”
+** Message: settings.vala:540: Key file does not have group “Session”
+** Message: settings.vala:540: Key file does not have group “Session”
+** Message: settings.vala:540: Key file does not have group “Session”
+** Message: settings.vala:540: Key file does not have group “Session”
+** Message: settings.vala:540: Key file does not have group “Session”
+** Message: settings.vala:540: Key file does not have group “Session”
+** Message: settings.vala:540: Key file does not have group “Session”
+** Message: settings.vala:540: Key file does not have group “Session”
+** Message: settings.vala:540: Key file does not have group “Session”
+** Message: settings.vala:540: Key file does not have group “Session”
+** Message: settings.vala:540: Key file does not have group “Session”
+** Message: settings.vala:540: Key file does not have group “Session”
+** Message: settings.vala:540: Key file does not have group “Session”
+** Message: settings.vala:540: Key file does not have group “Session”
+** Message: settings.vala:540: Key file does not have group “Keymap”
+** Message: settings.vala:540: Key file does not have group “State”
+** Message: settings.vala:540: Key file does not have group “State”
+** Message: settings.vala:540: Key file does not have group “Dbus”
+** Message: settings.vala:540: Key file does not have group “Dbus”
+** Message: settings.vala:540: Key file does not have group “Environment”
+** Message: settings.vala:540: Key file does not have group “Environment”
+** Message: settings.vala:540: Key file does not have group “Environment”
+** Message: settings.vala:540: Key file does not have group “Environment”
+** Message: settings.vala:540: Key file does not have group “Environment”
+** Message: settings.vala:540: Key file does not have group “Environment”
+** Message: settings.vala:540: Key file does not have group “Environment”
+** Message: settings.vala:540: Key file does not have group “GTK”
+** Message: settings.vala:540: Key file does not have group “GTK”
+** Message: settings.vala:540: Key file does not have group “GTK”
+** Message: settings.vala:540: Key file does not have group “GTK”
+** Message: settings.vala:540: Key file does not have group “GTK”
+** Message: settings.vala:540: Key file does not have group “GTK”
+** Message: settings.vala:540: Key file does not have group “GTK”
+** Message: settings.vala:540: Key file does not have group “GTK”
+** Message: settings.vala:540: Key file does not have group “GTK”
+** Message: settings.vala:540: Key file does not have group “GTK”
+** Message: settings.vala:540: Key file does not have group “GTK”
+** Message: settings.vala:540: Key file does not have group “GTK”
+** Message: settings.vala:540: Key file does not have group “GTK”
+** Message: settings.vala:540: Key file does not have group “GTK”
+** Message: settings.vala:540: Key file does not have group “GTK”
+** Message: settings.vala:540: Key file does not have group “GTK”
+** Message: settings.vala:540: Key file does not have group “Mouse”
+** Message: settings.vala:540: Key file does not have group “Mouse”
+** Message: settings.vala:540: Key file does not have group “Mouse”
+** Message: settings.vala:540: Key file does not have group “Keyboard”
+** Message: settings.vala:540: Key file does not have group “Keyboard”
+** Message: settings.vala:540: Key file does not have group “Keyboard”
+
+(lxsession:10852): GLib-GIO-CRITICAL **: g_file_new_for_path: assertion 'path != NULL' failed
+
+(lxsession:10852): GLib-GIO-CRITICAL **: g_file_monitor_file: assertion 'G_IS_FILE (file)' failed
+
+(lxsession:10852): GLib-GObject-WARNING **: invalid (NULL) pointer instance
+
+(lxsession:10852): GLib-GObject-CRITICAL **: g_signal_connect_object: assertion 'G_TYPE_CHECK_INSTANCE (instance)' failed
+** Message: settings.vala:462: Monitoring: (null)
+
+(lxsession:10852): GLib-GIO-CRITICAL **: g_file_get_path: assertion 'G_IS_FILE (file)' failed
+** Message: settings.vala:470: Desktop file is not in config home, monitoring creation of it
+** Message: settings.vala:485: Monitoring home path: /home/devan/.config/lxsession/LXDE/desktop.conf
+** Message: settings.vala:373: Settings default for Session, disable_autostart, (null) : no
+
+(lxsession:10852): GLib-CRITICAL **: g_file_set_contents: assertion 'filename != NULL' failed
+** Message: settings.vala:373: Settings default for Session, polkit, command : lxpolkit
+
+(lxsession:10852): GLib-CRITICAL **: g_file_set_contents: assertion 'filename != NULL' failed
+** Message: settings.vala:373: Settings default for Session, clipboard, command : lxclipboard
+
+(lxsession:10852): GLib-CRITICAL **: g_file_set_contents: assertion 'filename != NULL' failed
+** Message: settings.vala:373: Settings default for Session, xsettings_manager, command : build-in
+
+(lxsession:10852): GLib-CRITICAL **: g_file_set_contents: assertion 'filename != NULL' failed
+** Message: settings.vala:373: Settings default for Session, proxy_manager, command : build-in
+
+(lxsession:10852): GLib-CRITICAL **: g_file_set_contents: assertion 'filename != NULL' failed
+** Message: settings.vala:373: Settings default for Session, keyring, command : ssh-agent
+
+(lxsession:10852): GLib-CRITICAL **: g_file_set_contents: assertion 'filename != NULL' failed
+** Message: settings.vala:373: Settings default for GTK, iXft, Antialias : 1
+
+(lxsession:10852): GLib-CRITICAL **: g_file_set_contents: assertion 'filename != NULL' failed
+** Message: settings.vala:373: Settings default for GTK, iXft, Hinting : 1
+
+(lxsession:10852): GLib-CRITICAL **: g_file_set_contents: assertion 'filename != NULL' failed
+** Message: settings.vala:373: Settings default for GTK, sXft, HintStyle : hintslight
+
+(lxsession:10852): GLib-CRITICAL **: g_file_set_contents: assertion 'filename != NULL' failed
+** Message: settings.vala:373: Settings default for GTK, sXft, RGBA : rgb
+
+(lxsession:10852): GLib-CRITICAL **: g_file_set_contents: assertion 'filename != NULL' failed
+** Message: settings.vala:373: Settings default for GTK, sNet, ThemeName : Clearlooks
+
+(lxsession:10852): GLib-CRITICAL **: g_file_set_contents: assertion 'filename != NULL' failed
+** Message: settings.vala:373: Settings default for GTK, sNet, IconThemeName : nuoveXT2
+
+(lxsession:10852): GLib-CRITICAL **: g_file_set_contents: assertion 'filename != NULL' failed
+** Message: settings.vala:373: Settings default for GTK, iNet, EnableEventSounds : 1
+
+(lxsession:10852): GLib-CRITICAL **: g_file_set_contents: assertion 'filename != NULL' failed
+** Message: settings.vala:373: Settings default for GTK, iNet, EnableInputFeedbackSounds : 1
+
+(lxsession:10852): GLib-CRITICAL **: g_file_set_contents: assertion 'filename != NULL' failed
+** Message: settings.vala:373: Settings default for GTK, sGtk, ColorScheme : 
+
+(lxsession:10852): GLib-CRITICAL **: g_file_set_contents: assertion 'filename != NULL' failed
+** Message: settings.vala:373: Settings default for GTK, sGtk, FontName : Sans 10
+
+(lxsession:10852): GLib-CRITICAL **: g_file_set_contents: assertion 'filename != NULL' failed
+** Message: settings.vala:373: Settings default for GTK, iGtk, ToolbarStyle : 3
+
+(lxsession:10852): GLib-CRITICAL **: g_file_set_contents: assertion 'filename != NULL' failed
+** Message: settings.vala:373: Settings default for GTK, iGtk, ToolbarIconSize : 3
+
+(lxsession:10852): GLib-CRITICAL **: g_file_set_contents: assertion 'filename != NULL' failed
+** Message: settings.vala:373: Settings default for GTK, iGtk, ButtonImages : 1
+
+(lxsession:10852): GLib-CRITICAL **: g_file_set_contents: assertion 'filename != NULL' failed
+** Message: settings.vala:373: Settings default for GTK, iGtk, MenuImages : 1
+
+(lxsession:10852): GLib-CRITICAL **: g_file_set_contents: assertion 'filename != NULL' failed
+** Message: settings.vala:373: Settings default for GTK, iGtk, CursorThemeSize : 18
+
+(lxsession:10852): GLib-CRITICAL **: g_file_set_contents: assertion 'filename != NULL' failed
+** Message: settings.vala:373: Settings default for GTK, sGtk, CursorThemeName : DMZ-White
+
+(lxsession:10852): GLib-CRITICAL **: g_file_set_contents: assertion 'filename != NULL' failed
+** Message: settings.vala:373: Settings default for Mouse, AccFactor, (null) : 20
+
+(lxsession:10852): GLib-CRITICAL **: g_file_set_contents: assertion 'filename != NULL' failed
+** Message: settings.vala:373: Settings default for Mouse, AccThreshold, (null) : 10
+
+(lxsession:10852): GLib-CRITICAL **: g_file_set_contents: assertion 'filename != NULL' failed
+** Message: settings.vala:373: Settings default for Mouse, LeftHanded, (null) : 0
+
+(lxsession:10852): GLib-CRITICAL **: g_file_set_contents: assertion 'filename != NULL' failed
+** Message: settings.vala:373: Settings default for Keyboard, Delay, (null) : 500
+
+(lxsession:10852): GLib-CRITICAL **: g_file_set_contents: assertion 'filename != NULL' failed
+** Message: settings.vala:373: Settings default for Keyboard, Interval, (null) : 30
+
+(lxsession:10852): GLib-CRITICAL **: g_file_set_contents: assertion 'filename != NULL' failed
+** Message: settings.vala:373: Settings default for Keyboard, Beep, (null) : 1
+
+(lxsession:10852): GLib-CRITICAL **: g_file_set_contents: assertion 'filename != NULL' failed
+** Message: settings.vala:373: Settings default for State, guess_default, (null) : true
+
+(lxsession:10852): GLib-CRITICAL **: g_file_set_contents: assertion 'filename != NULL' failed
+** Message: settings.vala:373: Settings default for Dbus, lxde, (null) : true
+
+(lxsession:10852): GLib-CRITICAL **: g_file_set_contents: assertion 'filename != NULL' failed
+** Message: settings.vala:373: Settings default for Environment, menu_prefix, (null) : lxde-
+
+(lxsession:10852): GLib-CRITICAL **: g_file_set_contents: assertion 'filename != NULL' failed
+** Message: settings.vala:373: Settings default for Session, quit_manager, command : lxsession-logout
+
+(lxsession:10852): GLib-CRITICAL **: g_file_set_contents: assertion 'filename != NULL' failed
+** Message: settings.vala:373: Settings default for Session, quit_manager, image : /usr/share/lxde/images/logout-banner.png
+** Message: settings.vala:373: Settings default for Session, quit_manager, layout : top
+** Message: settings.vala:373: Settings default for Session, lock_manager, command : lxlock
+
+(lxsession:10852): GLib-CRITICAL **: g_file_set_contents: assertion 'filename != NULL' failed
+** Message: settings.vala:373: Settings default for Session, terminal_manager, command : lxterminal
+
+(lxsession:10852): GLib-CRITICAL **: g_file_set_contents: assertion 'filename != NULL' failed
+** Message: settings.vala:373: Settings default for Session, launcher_manager, command : lxpanelctl
+** Message: environement.vala:79: Exporting variable
+** Message: environement.vala:80: desktop_environnement XDG_CURRENT_DESKTOP
+** Message: environement.vala:177: custom_config :
+** Message: environement.vala:178: config_dirs :/etc/xdg
+** Message: environement.vala:179: confir_dirs not null, export : /etc/xdg
+** Message: environement.vala:184: Exporting XDG_CONFIG_DIRS
+** Message: environement.vala:218: custom_data :
+** Message: environement.vala:219: data_dirs :/usr/local/share:/usr/share:/usr/share/gdm:/var/lib/menu-xdg
+** Message: environement.vala:220: data_dirs not null, export : /usr/local/share:/usr/share:/usr/share/gdm:/var/lib/menu-xdg
+** Message: environement.vala:225: Exporting XDG_DATA_DIRS
+** Message: utils.vala:79: Config system location : /etc/xdg/lxsession/LXDE
+** Message: utils.vala:85: System system path location : (null)
+** Message: utils.vala:89: Final file used : (null)
+
+(lxsession:10852): GLib-CRITICAL **: g_key_file_load_from_file: assertion 'file != NULL' failed
+** Message: environement.vala:254: No entry in [Environment_variable]. Key file does not have group “Environment_variable”
+** Message: utils.vala:79: Config system location : /etc/xdg/lxsession/LXDE
+** Message: utils.vala:85: System system path location : (null)
+** Message: utils.vala:89: Final file used : (null)
+
+(lxsession:10852): GLib-CRITICAL **: g_file_test: assertion 'filename != NULL' failed
+** Message: options.vala:164: Activate xsettings_manager build-in
+** Message: utils.vala:79: Config system location : /etc/xdg/lxsession/LXDE
+** Message: utils.vala:85: System system path location : (null)
+** Message: utils.vala:89: Final file used : (null)
+
+(lxsession:10852): GLib-CRITICAL **: g_key_file_load_from_file: assertion 'file != NULL' failed
+** Message: app.vala:721: polkit separate
+** Message: app.vala:721: polkit separate
+** Message: app.vala:76: Launching lxpolkit 
+** Message: utils.vala:79: Config system location : /etc/xdg/lxsession/LXDE
+** Message: utils.vala:85: System system path location : (null)
+** Message: utils.vala:89: Final file used : (null)
+
+(lxsession:10852): GLib-GIO-CRITICAL **: g_file_new_for_path: assertion 'path != NULL' failed
+
+(lxsession:10852): GLib-GIO-CRITICAL **: g_file_get_path: assertion 'G_IS_FILE (file)' failed
+** Message: autostart.vala:42: Autostart path : (null)
+
+(lxsession:10852): GLib-GIO-CRITICAL **: g_file_query_exists: assertion 'G_IS_FILE(file)' failed
+** Message: options.vala:110: Create Option Clipboard
+** Message: options.vala:44: Options - Launch command lxclipboard
+** Message: main.vala:442: Check keymap_mode (null)
+
+** (lxsession:10852): WARNING **: app.vala:86: Failed to execute child process “/usr/bin/ssh-agent” (No such file or directory)
+
+** (lxsession:10852): WARNING **: app.vala:87: Error when launching /usr/bin/ssh-agent
+
+(lxpolkit:10856): Gtk-WARNING **: Unable to locate theme engine in module_path: "adwaita",
+
+(lxclipboard:10858): Gtk-WARNING **: Unable to locate theme engine in module_path: "adwaita",
+
+(lxpolkit:10856): Gtk-WARNING **: Unable to locate theme engine in module_path: "murrine",
+
+(lxpolkit:10856): Gtk-WARNING **: Unable to locate theme engine in module_path: "murrine",
+
+(lxpolkit:10856): Gtk-WARNING **: Unable to locate theme engine in module_path: "murrine",
+
+(lxclipboard:10858): Gtk-WARNING **: Unable to locate theme engine in module_path: "murrine",
+
+(lxclipboard:10858): Gtk-WARNING **: Unable to locate theme engine in module_path: "murrine",
+
+(lxclipboard:10858): Gtk-WARNING **: Unable to locate theme engine in module_path: "murrine",

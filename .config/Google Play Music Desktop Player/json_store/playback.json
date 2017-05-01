@@ -1,0 +1,21 @@
+{
+    "playing": true,
+    "song": {
+        "title": "No Swinggity",
+        "artist": "Minimatic",
+        "album": "No Swinggity",
+        "albumArt": "https://lh3.googleusercontent.com/waXIzNFafl9qKGoeu6wcNsWuIka1UYPMUrqRNZmLdX50oYJq_YVgdQCitXcJLuE6_SbPThlgiw"
+    },
+    "rating": {
+        "liked": false,
+        "disliked": false
+    },
+    "time": {
+        "current": 92826,
+        "total": 211000
+    },
+    "songLyrics": null,
+    "shuffle": "NO_SHUFFLE",
+    "repeat": "NO_REPEAT",
+    "volume": 70
+}

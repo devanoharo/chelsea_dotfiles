@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>Arch Linux</title>
+    <link rel="stylesheet" type="text/css" href="/static/archweb.06087fbfb390.css" media="screen, projection" />
+    <link rel="icon" type="image/x-icon" href="/static/favicon.29302f683ff8.ico" />
+    <link rel="shortcut icon" type="image/x-icon" href="/static/favicon.29302f683ff8.ico" />
+    <link rel="apple-touch-icon" href="/static/logos/apple-touch-icon-57x57.0cd0ab3349e2.png" />
+    <link rel="apple-touch-icon" sizes="72x72" href="/static/logos/apple-touch-icon-72x72.e502bac6368f.png" />
+    <link rel="apple-touch-icon" sizes="114x114" href="/static/logos/apple-touch-icon-114x114.343cca8f850e.png" />
+    <link rel="apple-touch-icon" sizes="144x144" href="/static/logos/apple-touch-icon-144x144.38cf584757c3.png" />
+    <link rel="search" type="application/opensearchdescription+xml" href="/opensearch/packages/" title="Arch Linux Packages" />
+    
+<link rel="alternate" type="application/rss+xml" title="Arch Linux News Updates" href="/feeds/news/" />
+<link rel="alternate" type="application/rss+xml" title="Arch Linux Package Updates" href="/feeds/packages/" />
+
+</head>
+<body class="">
+    <div id="archnavbar" class="anb-home">
+        <div id="archnavbarlogo"><h1><a href="/" title="Return to the main page">Arch Linux</a></h1></div>
+        <div id="archnavbarmenu">
+            <ul id="archnavbarlist">
+                <li id="anb-home"><a href="/" title="Arch news, packages, projects and more">Home</a></li>
+                <li id="anb-packages"><a href="/packages/" title="Arch Package Database">Packages</a></li>
+                <li id="anb-forums"><a href="https://bbs.archlinux.org/" title="Community forums">Forums</a></li>
+                <li id="anb-wiki"><a href="https://wiki.archlinux.org/" title="Community documentation">Wiki</a></li>
+                <li id="anb-bugs"><a href="https://bugs.archlinux.org/" title="Report and track bugs">Bugs</a></li>
+                <li id="anb-security"><a href="https://security.archlinux.org/" title="Arch Linux Security Tracker">Security</a></li>
+                <li id="anb-aur"><a href="https://aur.archlinux.org/" title="Arch Linux User Repository">AUR</a></li>
+                <li id="anb-download"><a href="/download/" title="Get Arch Linux">Download</a></li>
+            </ul>
+        </div>
+    </div>
+    <div id="content">
+        <div id="archdev-navbar">
+            
+        </div>
+        
+        
+            <div id="content-left-wrapper">
+                <div id="content-left">
+                    
+
+<div id="intro" class="box">
+    <h2>A simple, lightweight distribution</h2>
+
+    <p>You've reached the website for <strong>Arch Linux</strong>, a
+    lightweight and flexible LinuxÂ® distribution that tries to Keep It
+    Simple.</p>
+
+    <p>Currently we have official packages optimized for the i686 and
+    x86-64 architectures. We complement our official package sets with a
+    <a href="https://aur.archlinux.org/" title="Arch User Repository (AUR)">
+        community-operated package repository</a> that grows in size and
+    quality each and every day.</p>
+
+    <p>Our strong community is diverse and helpful, and we pride ourselves
+    on the range of skillsets and uses for Arch that stem from it. Please
+    check out our <a href="https://bbs.archlinux.org/" title="Arch Forums">forums</a>
+    and <a href="https://mailman.archlinux.org/mailman/listinfo/"
+        title="Arch Mailing Lists">mailing lists</a>
+    to get your feet wet.  Also glance through our <a href="https://wiki.archlinux.org/"
+        title="Arch Wiki">wiki</a>
+    if you want to learn more about Arch.</p>
+
+    <p class="readmore"><a href="/about/"
+        title="Learn more about Arch Linux">Learn more...</a></p>
+</div>
+
+<div id="news">
+    <h3>
+        <a href="/news/" title="Browse the news archives">Latest News</a>
+        <span class="arrow"></span>
+    </h3>
+
+    <a href="/feeds/news/" title="Arch News RSS Feed"
+        class="rss-icon"><img width="16" height="16" src="/static/rss.c5ebdc5318d6.png" alt="RSS Feed" /></a>
+
+    
+    <h4>
+        <a href="/news/ca-certificates-utils-20170307-1-upgrade-requires-manual-intervention/"
+            title="View full article: ca-certificates-utils 20170307-1 upgrade requires manual intervention">ca-certificates-utils 20170307-1 upgrade requires manual intervention</a>
+    </h4>
+    <p class="timestamp">2017-03-15</p>
+    <div class="article-content">
+        <p>The upgrade to <strong>ca-certificates-utils 20170307-1</strong> requires manual intervention because a symlink which used to be generated post-install has been moved into the package proper.</p>
+<p>As deleting the symlink may leave you unable to download packages, perform this upgrade in three steps:</p>
+<pre><code># pacman -Syuw                           # download packages
+# rm /etc/ssl/certs/ca-certificates.crt  # remove conflicting file
+# pacman -Su                             # perform upgrade
+</code></pre>
+        
+    </div>
+    
+    <h4>
+        <a href="/news/mesa-with-libglvnd-support-is-now-in-testing/"
+            title="View full article: mesa  with libglvnd support is now in testing">mesa  with libglvnd support is now in testing</a>
+    </h4>
+    <p class="timestamp">2017-02-27</p>
+    <div class="article-content">
+        <p><code>mesa</code>-17.0.0-3 can now be installed side-by-side with <code>nvidia</code>-378.13 driver without any libgl/libglx hacks, and with the help of Fedora and upstream xorg-server patches.</p>
+<ul>
+<li>
+<p>First step was to remove the libglx symlinks with xorg-server-1.19.1-3 and associated mesa/nvidia drivers through the removal of various libgl packages. It was a tough moment because it was breaking optimus system, <code>xorg-server</code> configuration needs manual updating.</p>
+</li>
+<li>
+<p>The second step is now here, with an updated <a href="https://git.archlinux.org/svntogit/packages.git/tree/trunk/nvidia-drm-outputclass.conf?h=packages/nvidia-utils">10-nvidia-drm-outputclass.conf</a>  file that should help to have an "out-of-the-box" working <code>xorg-server</code> experience with optimus system.</p>
+</li>
+</ul>
+<p>Please test this extensively and post ...</p>
+    </div>
+    
+    <h4>
+        <a href="/news/phasing-out-i686-support/"
+            title="View full article: Phasing out i686 support">Phasing out i686 support</a>
+    </h4>
+    <p class="timestamp">2017-01-25</p>
+    <div class="article-content">
+        <p>Due to the decreasing popularity of i686 among the developers and the
+community, we have decided to phase out the support of this architecture.</p>
+<p>The decision means that February ISO will be the last that allows to
+install 32 bit Arch Linux. The next 9 months are deprecation period,
+during which i686 will be still receiving upgraded packages. Starting
+from November 2017, packaging and repository tools will no longer
+require that from maintainers, effectively making i686 unsupported.</p>
+<p>However, as there is still some interest in keeping i686 alive, we would
+like to encourage the community to make it happen with ...</p>
+    </div>
+    
+    <h4>
+        <a href="/news/xorg-server-1191-is-now-in-extra/"
+            title="View full article: xorg-server 1.19.1 is now in extra">xorg-server 1.19.1 is now in extra</a>
+    </h4>
+    <p class="timestamp">2017-01-14</p>
+    <div class="article-content">
+        <p>The new version comes with the following changes:</p>
+<ul>
+<li>
+<p>xf86-input-libinput is the default input driver, however synaptics, evdev and wacom are still available.</p>
+</li>
+<li>
+<p>These packages are deprecated and moved to AUR:
+xf86-input-joystick, xf86-input-acecad, xf86-video-apm, xf86-video-ark, xf86-video-chips, xf86-video-glint, xf86-video-i128, xf86-video-i740, xf86-video-mach64, xf86-video-neomagic, xf86-video-nv, xf86-video-r128, xf86-video-rendition, xf86-video-s3, xf86-video-s3virge, xf86-video-savage, xf86-video-siliconmotion, xf86-video-sis, xf86-video-tdfx, xf86-video-trident, xf86-video-tseng</p>
+</li>
+</ul>
+    </div>
+    
+    <h4>
+        <a href="/news/openvpn-240-update-requires-administrative-interaction/"
+            title="View full article: OpenVPN 2.4.0 update requires administrative interaction">OpenVPN 2.4.0 update requires administrative interaction</a>
+    </h4>
+    <p class="timestamp">2016-12-30</p>
+    <div class="article-content">
+        <p>The upgrade to OpenVPN 2.4.0 makes changes that are incompatible with
+previous configurations. Take <strong>special care</strong> if you depend on VPN
+connectivity for <strong>remote access</strong>! Administrative interaction is required:</p>
+<ul>
+<li>Configuration is expected in sub directories now. Move your files
+  from <code>/etc/openvpn/</code> to <code>/etc/openvpn/server/</code> or <code>/etc/openvpn/client/</code>.</li>
+<li>The plugin lookup path changed, remove extra <code>plugins/</code> from relative
+  paths.</li>
+<li>The systemd unit <code>openvpn@.service</code> was replaced with
+  <code>openvpn-client@.service</code> and <code>openvpn-server@.service</code>. Restart and
+  reenable accordingly.</li>
+</ul>
+<p>This does not affect the functionality of <code>networkmanager</code>, <code>connman</code>
+or <code>qopenvpn</code>.</p>
+    </div>
+    
+    <h3>
+        <a href="/news/"
+            title="Browse the news archives">Older News</a>
+        <span class="arrow"></span>
+    </h3>
+    <dl class="newslist">
+    
+        <dt>2016-10-31</dt>
+        <dd>
+            <a href="/news/ttf-dejavu-237-will-require-forced-upgrade/"
+                title="View full article: ttf-dejavu 2.37 will require forced upgrade">ttf-dejavu 2.37 will require forced upgrade</a>
+        </dd>
+    
+    
+        <dt>2016-08-06</dt>
+        <dd>
+            <a href="/news/texlive-2016-packages-are-now-available/"
+                title="View full article: TeXLive 2016 packages are now available">TeXLive 2016 packages are now available</a>
+        </dd>
+    
+    
+        <dt>2016-07-18</dt>
+        <dd>
+            <a href="/news/test-sec-flags-call-for-assistance/"
+                title="View full article: test-sec-flags: Call for Assistance">test-sec-flags: Call for Assistance</a>
+        </dd>
+    
+    
+        <dt>2016-06-26</dt>
+        <dd>
+            <a href="/news/screen-440-1-unable-to-attach-old-sessions/"
+                title="View full article: screen-4.4.0-1 unable to attach old sessions">screen-4.4.0-1 unable to attach old sessions</a>
+        </dd>
+    
+    
+        <dt>2016-03-24</dt>
+        <dd>
+            <a href="/news/required-update-to-pacman-501-before-2016-04-23/"
+                title="View full article: Required update to pacman-5.0.1 before 2016-04-23">Required update to pacman-5.0.1 before 2016-04-23</a>
+        </dd>
+    
+    
+        <dt>2016-01-02</dt>
+        <dd>
+            <a href="/news/php-70-packages-released/"
+                title="View full article: PHP 7.0 packages released">PHP 7.0 packages released</a>
+        </dd>
+    
+    
+        <dt>2015-12-12</dt>
+        <dd>
+            <a href="/news/dropping-plasma-4/"
+                title="View full article: Dropping Plasma 4">Dropping Plasma 4</a>
+        </dd>
+    
+    
+        <dt>2015-12-10</dt>
+        <dd>
+            <a href="/news/c-abi-change/"
+                title="View full article: C++ ABI change">C++ ABI change</a>
+        </dd>
+    
+    
+        <dt>2015-11-13</dt>
+        <dd>
+            <a href="/news/xorg-1180-enters-testing/"
+                title="View full article: Xorg 1.18.0 enters [testing]">Xorg 1.18.0 enters [testing]</a>
+        </dd>
+    
+    
+        <dt>2015-10-08</dt>
+        <dd>
+            <a href="/news/downtime-rsync-mail/"
+                title="View full article: Downtime (rsync, mail)">Downtime (rsync, mail)</a>
+        </dd>
+    </dl>
+    
+</div>
+
+
+                </div>
+            </div>
+            <div id="content-right">
+                
+
+<div id="pkgsearch" class="widget">
+    <form id="pkgsearch-form" method="get" action="/packages/">
+        <fieldset>
+            <label for="pkgsearch-field">Package Search:</label>
+            <input id="pkgsearch-field" type="text" name="q" size="18" maxlength="200" />
+        </fieldset>
+    </form>
+</div>
+
+<div id="pkg-updates" class="widget box">
+    <h3>Recent Updates <span class="more">(<a href="/packages/?sort=-last_update"
+            title="Browse all of the latest packages">more</a>)</span></h3>
+
+    <a href="/feeds/packages/" title="Arch Package Updates RSS Feed"
+        class="rss-icon"><img width="16" height="16" src="/static/rss.c5ebdc5318d6.png" alt="RSS Feed" /></a>
+
+    <table>
+        
+        <tr>
+            <td class="pkg-name"><span class="community">filezilla 3.25.2-1</span></td>
+            <td class="pkg-arch">
+                <a href="/packages/community/i686/filezilla/"
+                    title="Details for filezilla [community]">i686</a>/<a href="/packages/community/x86_64/filezilla/"
+                    title="Details for filezilla [community]">x86_64</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td class="pkg-name"><span class="extra">thunderbird 52.1.0-1</span></td>
+            <td class="pkg-arch">
+                <a href="/packages/extra/i686/thunderbird/"
+                    title="Details for thunderbird [extra]">i686</a>/<a href="/packages/extra/x86_64/thunderbird/"
+                    title="Details for thunderbird [extra]">x86_64</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td class="pkg-name"><span class="extra">thunderbird-i18n 52.1.0-1</span></td>
+            <td class="pkg-arch">
+                <a href="/packages/extra/any/thunderbird-i18n/"
+                    title="Details for thunderbird-i18n [extra]">any</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td class="pkg-name"><span class="community">yarn 0.23.3-1</span></td>
+            <td class="pkg-arch">
+                <a href="/packages/community/any/yarn/"
+                    title="Details for yarn [community]">any</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td class="pkg-name"><span class="testing">xmlsec 1.2.24-1</span></td>
+            <td class="pkg-arch">
+                <a href="/packages/testing/i686/xmlsec/"
+                    title="Details for xmlsec [testing]">i686</a>/<a href="/packages/testing/x86_64/xmlsec/"
+                    title="Details for xmlsec [testing]">x86_64</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td class="pkg-name"><span class="community">apm 1.18.1-1</span></td>
+            <td class="pkg-arch">
+                <a href="/packages/community/i686/apm/"
+                    title="Details for apm [community]">i686</a>/<a href="/packages/community/x86_64/apm/"
+                    title="Details for apm [community]">x86_64</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td class="pkg-name"><span class="community">gitlab 9.1.1-2</span></td>
+            <td class="pkg-arch">
+                <a href="/packages/community/i686/gitlab/"
+                    title="Details for gitlab [community]">i686</a>/<a href="/packages/community/x86_64/gitlab/"
+                    title="Details for gitlab [community]">x86_64</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td class="pkg-name"><span class="extra">fprintd 0.7.0+12+ge55ad52-2</span></td>
+            <td class="pkg-arch">
+                <a href="/packages/extra/i686/fprintd/"
+                    title="Details for fprintd [extra]">i686</a>/<a href="/packages/extra/x86_64/fprintd/"
+                    title="Details for fprintd [extra]">x86_64</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td class="pkg-name"><span class="extra">linux-zen 4.10.13-1</span></td>
+            <td class="pkg-arch">
+                <a href="/packages/extra/i686/linux-zen/"
+                    title="Details for linux-zen [extra]">i686</a>/<a href="/packages/extra/x86_64/linux-zen/"
+                    title="Details for linux-zen [extra]">x86_64</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td class="pkg-name"><span class="community">geckodriver 0.16.1-1</span></td>
+            <td class="pkg-arch">
+                <a href="/packages/community/i686/geckodriver/"
+                    title="Details for geckodriver [community]">i686</a>/<a href="/packages/community/x86_64/geckodriver/"
+                    title="Details for geckodriver [community]">x86_64</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td class="pkg-name"><span class="community">ansible 2.3.0.0-5</span></td>
+            <td class="pkg-arch">
+                <a href="/packages/community/any/ansible/"
+                    title="Details for ansible [community]">any</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td class="pkg-name"><span class="community">ogre 1.10.4-2</span></td>
+            <td class="pkg-arch">
+                <a href="/packages/community/i686/ogre/"
+                    title="Details for ogre [community]">i686</a>/<a href="/packages/community/x86_64/ogre/"
+                    title="Details for ogre [community]">x86_64</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td class="pkg-name"><span class="multilib">wine 2.7-1</span></td>
+            <td class="pkg-arch">
+                <a href="/packages/multilib/x86_64/wine/"
+                    title="Details for wine [multilib]">x86_64</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td class="pkg-name"><span class="community">wine 2.7-1</span></td>
+            <td class="pkg-arch">
+                <a href="/packages/community/i686/wine/"
+                    title="Details for wine [community]">i686</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td class="pkg-name"><span class="community">haskell-turtle 1.3.3-1</span></td>
+            <td class="pkg-arch">
+                <a href="/packages/community/i686/haskell-turtle/"
+                    title="Details for haskell-turtle [community]">i686</a>/<a href="/packages/community/x86_64/haskell-turtle/"
+                    title="Details for haskell-turtle [community]">x86_64</a>
+            </td>
+        </tr>
+        
+    </table>
+</div>
+
+
+
+<div id="nav-sidebar" class="widget">
+    <h4>Documentation</h4>
+    <ul>
+        <li><a href="https://wiki.archlinux.org/"
+            title="Community documentation">Wiki</a></li>
+        <li><a href="https://wiki.archlinux.org/index.php/Installation_guide"
+            title="Installation guide">Installation Guide</a></li>
+    </ul>
+
+    <h4>Community</h4>
+    <ul>
+        <li><a href="https://mailman.archlinux.org/mailman/listinfo/"
+            title="Community and developer mailing lists">Mailing Lists</a></li>
+        <li><a href="https://wiki.archlinux.org/index.php/IRC_channels"
+            title="Official and regional IRC communities">IRC Channels</a></li>
+        <li><a href="https://planet.archlinux.org/"
+            title="Arch in the blogosphere">Planet Arch</a></li>
+        <li><a href="https://wiki.archlinux.org/index.php/International_communities"
+            title="Arch communities in your native language">International Communities</a></li>
+    </ul>
+
+    <h4>Support</h4>
+    <ul>
+        <li><a href="/donate/" title="Help support Arch Linux">Donate</a></li>
+        <li><a href="http://schwag.archlinux.ca/"
+            title="USB keys, jewellery, case badges">Arch Schwag</a></li>
+        <li><a href="http://www.zazzle.com/archlinux*"
+            title="T-shirts, mugs, mouse pads, hoodies, posters, skateboards, shoes, etc.">Products via Zazzle</a></li>
+        <li><a href="http://www.unixstickers.com/tag/archlinux" title="Arch
+        Linux stickers, t-shirts, hoodies, mugs, posters and pins">Products via Unixstickers</li>
+        <li><a href="http://www.freewear.org/?page=list_items&amp;org=Archlinux"
+            title="T-shirts">T-shirts via Freewear</a></li>
+    </ul>
+
+    <h4>Tools</h4>
+    <ul>
+        <li><a href="/mirrorlist/"
+            title="Get a custom mirrorlist from our database">Mirrorlist Updater</a></li>
+        <li><a href="/mirrors/"
+            title="See a listing of all available mirrors">Mirror List</a></li>
+        <li><a href="/mirrors/status/"
+            title="Check the status of all known mirrors">Mirror Status</a></li>
+    </ul>
+
+    <h4>Development</h4>
+    <ul>
+        <li><a href="https://projects.archlinux.org/"
+            title="Official Arch projects (git)">Projects in Git</a></li>
+        <li><a href="/svn/"
+            title="View SVN entries for packages">SVN Repositories</a></li>
+        <li><a href="https://wiki.archlinux.org/index.php/DeveloperWiki"
+            title="Developer Wiki articles">Developer Wiki</a></li>
+        <li><a href="/groups/"
+            title="View the available package groups">Package Groups</a></li>
+        <li><a href="/todo/"
+            title="Developer Todo Lists">Todo Lists</a></li>
+        <li><a href="/releng/releases/"
+            title="Release Engineering ISO listing">ISO Release List</a></li>
+        <li><a href="/visualize/"
+            title="View visualizations">Visualizations</a></li>
+        <li><a href="/packages/differences/"
+            title="See differences in packages between available architectures">Differences Reports</a></li>
+    </ul>
+
+    <h4>People</h4>
+    <ul>
+        
+        <li><a href="/people/developers/" title="More info about Developers">Developers</a></li>
+        
+        <li><a href="/people/trusted-users/" title="More info about Trusted Users">Trusted Users</a></li>
+        
+        <li><a href="/people/support-staff/" title="More info about Support Staff">Support Staff</a></li>
+        
+        <li><a href="/people/developer-fellows/" title="More info about Developer Fellows">Developer Fellows</a></li>
+        
+        <li><a href="/people/trusted-user-fellows/" title="More info about Trusted User Fellows">Trusted User Fellows</a></li>
+        
+        <li><a href="/master-keys/"
+            title="Package/Database signing master keys">Signing Master Keys</a></li>
+    </ul>
+
+    <h4>More Resources</h4>
+    <ul>
+        <li><a href="https://wiki.archlinux.org/index.php/Arch_Linux_press_coverage"
+            title="Arch Linux in the media">Press Coverage</a></li>
+        <li><a href="/art/" title="Arch logos and other artwork for promotional use">Logos &amp; Artwork</a></li>
+        <li><a href="/news/" title="News Archives">News Archives</a></li>
+        <li><a href="/feeds/" title="Various RSS Feeds">RSS Feeds</a></li>
+    </ul>
+</div>
+
+<div id="home-donate-button" class="widget">
+    <a href="https://co.clickandpledge.com/Default.aspx?WID=47294">
+        <img width="210" height="34" src="/static/click_and_pledge.f9247ed9b292.png" alt="Donate via Click&amp;Pledge to Arch Linux" title="Donate via Click&amp;Pledge to Arch Linux"/>
+    </a>
+</div>
+
+<div id="arch-sponsors" class="widget">
+    <a href="http://www.velocitynetwork.net/?hosting_by=ArchLinux" title="Velocity Network">
+        <img width="252" height="58" src="/static/vnet_button.72acbbbef264.png" alt="Velocity Network - It's about time" />
+    </a>
+</div>
+
+
+            </div>
+        
+        <div id="footer">
+            <p>Copyright Â© 2002-2017 <a href="mailto:jvinet@zeroflux.org"
+                title="Contact Judd Vinet">Judd Vinet</a> and <a href="mailto:aaron@archlinux.org"
+                title="Contact Aaron Griffin">Aaron Griffin</a>.</p>
+
+            <p>The Arch Linux name and logo are recognized
+            <a href="https://wiki.archlinux.org/index.php/DeveloperWiki:TrademarkPolicy"
+                title="Arch Linux Trademark Policy">trademarks</a>. Some rights reserved.</p>
+
+            <p>The registered trademark LinuxÂ® is used pursuant to a sublicense from LMI,
+            the exclusive licensee of Linus Torvalds, owner of the mark on a world-wide basis.</p>
+        </div>
+    </div>
+    <script type="application/ld+json">
+    {
+       "@context": "http://schema.org",
+       "@type": "WebSite",
+       "url": "https://www.archlinux.org/",
+       "potentialAction": {
+         "@type": "SearchAction",
+         "target": "https://www.archlinux.org/packages/?q={search_term}",
+         "query-input": "required name=search_term"
+       }
+    }
+    </script>
+    
+<div id="konami" style="display:none;"></div>
+
+<script type="text/javascript" src="/static/jquery-1.8.3.min.e1288116312e.js"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+    $.ajax({ url: "/static/homepage.83512088970b.js", cache: true, dataType: "script", success: function() { setupTypeahead(); setupKonami("/static/vector_tux.864e6cdcc23e.png"); } });
+});
+</script>
+
+</body>
+</html>
+ƒäM;      YhšYh¢=µ‚YiÍ       :https://www.archlinux.org/ necko:classified 1 strongly-framed 1 security-info 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 request-method GET response-head HTTP/2.0 200 OK
+Server: nginx/1.10.3
+Content-Type: text/html; charset=utf-8
+Content-Length: 24847
+Vary: Cookie
+Cache-Control: max-age=307
+Date: Sun, 30 Apr 2017 22:43:46 GMT
+x-frame-options: DENY
+strict-transport-security: max-age=31536000; includeSubdomains; preload
+X-Firefox-Spdy: h2
+ original-response-headers Server: nginx/1.10.3
+Content-Type: text/html; charset=utf-8
+Content-Length: 24847
+Vary: Cookie
+Cache-Control: max-age=307
+Date: Sun, 30 Apr 2017 22:43:46 GMT
+x-frame-options: DENY
+strict-transport-security: max-age=31536000; includeSubdomains; preload
+X-Firefox-Spdy: h2
+ uncompressed-len 0 predictor::resource-count 6 predictor::https://www.archlinux.org/static/archweb.06087fbfb390.css 1,1,1493592218,4096 predictor::https://www.archlinux.org/static/rss.c5ebdc5318d6.png 1,1,1493592218,4096 net-response-time-onstart 6298 net-response-time-onstop 8291 predictor::https://www.archlinux.org/static/click_and_pledge.f9247ed9b292.png 1,1,1493592218,4096 predictor::https://www.archlinux.org/static/vnet_button.72acbbbef264.png 1,1,1493592218,4096 predictor::https://www.archlinux.org/static/jquery-1.8.3.min.e1288116312e.js 1,1,1493592218,4096 predictor::https://www.archlinux.org/static/archnavbar/archlogo.a2d0ef2df27d.png 1,1,1493592218,4096   a

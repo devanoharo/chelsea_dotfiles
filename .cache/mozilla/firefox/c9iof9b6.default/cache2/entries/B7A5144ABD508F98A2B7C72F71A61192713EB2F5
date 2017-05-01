@@ -1,0 +1,629 @@
+"use strict";
+var ARTEXPO = (function () {
+    var config = {
+        frameId: "iPerceptionsFrame",
+        iFrameUrl: "//universal.iperceptions.com",
+        trackingUrl: "//post.iperceptions.com/ip.gif?",
+        artUrl: "//active-recognition.iperceptions.com/api/decision/DecisionRequest",
+        companyId: 22299,
+        domain: "",
+        branchRate: 99,
+        branchBehavioral: 0,
+        branchART: 1,
+        behavioralDelaySeconds: 7,
+        behavioralInviteRate: 6,
+        artThreshold: 0,
+        artPages: 5,
+        onlyHarvest: false,
+        harvestAll: false,
+        volumePercent: 100
+    };
+
+    var protocol = location.protocol;
+
+    var expoConfig = {
+        iframe: null,
+        container: null,
+        protocol: protocol,
+        debug: false,
+        langId: 1,
+        projectId: 122423,
+        serverUrl: 'collect.iperceptions.com',
+        fontPath: protocol + '//collect.iperceptions.com/Content/themes/base/fonts/',
+        trackingImgPath: protocol + '//IPS-IMG.iperceptions.com/Counter/counter_N.png',
+        gotoQuestionId: "24313",
+        locale: {
+            closeTitle: 'Close Survey',
+            satisfactoryTitle: 'Satisfactory',
+            neutralTitle: 'Neutral',
+            unsatisfactoryTitle: 'Unsatisfactory',
+            questionLabel: 'How is your visit?'
+        },
+        blockedUrls: ["xfinity.com/help-and-support/billing/late-payments/", "xfinity.com/help-and-support/billing/setting-up-auto-payments/", "xfinity.com/bill-pay.html", "xfinity.com/customization/customizeInternet.aspx", "xfinity.com/customization/customizephone.aspx", "xfinity.com/customization/customizetv.aspx", "xfinity.com/move-transfer.html", "xfinity.com/PaymentCenters/FindPaymentCenters.cspx", "xfinity.com/m/AddToWallet", "xfinity.com/m/Autopay", "xfinity.com/m/AutoPay/Change", "xfinity.com/m/billing", "xfinity.com/m/billing/BillDetails/", "xfinity.com/m/Billing/BillingHistory", "xfinity.com/m/billing/BillingHistory/", "xfinity.com/m/billing/orderdetails", "xfinity.com/m/billing/PaymentPreferences", "xfinity.com/m/Billing/PendingCharges", "xfinity.com/m/ManageWallet", "xfinity.com/m/ManageWallet/DeleteInstrument", "xfinity.com/m/OneTouchBillPayment/AccountNumberEnter", "xfinity.com/m/OneTouchBillPayment/BillSelectPayment", "xfinity.com/m/OneTouchBillPayment/OcrTakePicture", "xfinity.com/m/OneTouchBillPayment/PaymentChooseCheck", "xfinity.com/m/OneTouchBillPayment/PaymentConfirm", "xfinity.com/m/OneTouchBillPayment/PaymentManual", "xfinity.com/m/OneTouchBillPayment/PaymentVerify", "xfinity.com/m/Pay", "xfinity.com/m/Unauthorized", "xfinity.com/Secure/MyAccount", "xfinity.com/Secure/OneTimePayment", "xfinity.com/Secure/PaymentMethods", "xfinity.com/WalledGarden/", "xfinity.com/Checkout/AccountInformation.aspx", "xfinity.com/Checkout/Confirmation2.aspx", "xfinity.com/Checkout/Installation.aspx", "xfinity.com/Checkout/review.aspx", "my.xfinity.com", "mobile.xfinity.com/", "myxfn.qa.xfinity.com", "myxfn.staging.xfinity.com"],
+        enabledDomains: [".xfinity.com", ".iperceptions.com"]
+    };
+
+    var isSurveyLaunched = false;
+    var branchKey = "ipe.artexpo.branch." + config.companyId;
+    var targetedKey;
+
+    var setSurvey = function (e) {
+        if (e) { expoConfig.projectId = e; }
+        targetedKey = "ipe." + expoConfig.projectId + ".targeted";
+    };
+    var setDomain = function (e) { config.domain = e; };
+    var setBranchRate = function (r) { if (r) { config.branchRate = r; } };
+
+    function trackPage(data) {
+        if (!(!isIE8OrLower() && !isInBlockedUrls() && isInEnabledDomains())) {
+            return;
+        }
+        try {
+            var sessionId = getSessionCookie();
+            if (!sessionId && typeof iPerceptions.Wrapper != 'undefined' && typeof iPerceptions.Wrapper.setAndGetCookie === "function") {
+                sessionId = iPerceptions.Wrapper.setAndGetCookie("ipe_s")
+            }
+            if (typeof data == "undefined") {
+                data = "";
+            }
+            var track = "sid=" + sessionId + "&vid=" + getVisitorId() + "&tkid=" + window.iperceptionskey + "&url=" + encodeURIComponent(location.href) + "&events=" + "&data=" + encodeURIComponent(data) + "&title=" + encodeURIComponent(document.title) + "&scroll=";
+            if (config.harvestAll == true) {
+                track += "&ha=1";
+            }
+            if (data.indexOf("artResult") == 0) {
+                track += "&va=1";
+            }
+            if (window.XDomainRequest) {
+
+                var xdr = new XDomainRequest();
+                xdr.open('GET', config.trackingUrl + track);
+                xdr.send();
+            }
+            else {
+                var oRequest =
+                new XMLHttpRequest();
+                oRequest.open('GET', config.trackingUrl + track, true);
+                oRequest.send();
+            }
+        } catch (ex) { }
+
+    }
+
+    function getVisitorId() {
+        return RC("ipe_v");
+    };
+
+    var createVisitorId = function () {
+        CC("ipe_v", guid(), 9999);
+    };
+
+    function getSessionCookie() {
+        return RC("ipe_s");
+    };
+
+
+    function RC(e) {
+        if (typeof iPerceptions.Wrapper != 'undefined') {
+            var cookie = iPerceptions.Wrapper.getCookie(e);
+            return cookie === "" ? null : cookie;
+        }
+        return null;
+    };
+
+    function CC(e, t, n) {
+        if (typeof iPerceptions.Wrapper != 'undefined') {
+            var s = "";
+            if (n) { var i = new Date(); i.setTime(i.getTime() + n * 24 * 60 * 60 * 1e3); s = i.toUTCString(); }
+            iPerceptions.Wrapper.setCookie(e, t, s);
+        }
+    };
+
+    function seed() { return Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1); }
+    function guid() { return seed() + seed() + '-' + seed() + '-' + seed() + '-' + seed() + '-' + seed() + seed() + seed(); }
+
+    function domAddEvent(target, eventName, handlerFn) {
+        if (target.addEventListener)
+            target.addEventListener(eventName, handlerFn, true);
+        else if (target.attachEvent)
+            target.attachEvent("on" + eventName, handlerFn);
+        else
+            target["on" + eventName] = handlerFn;
+    };
+
+    var generateRandomSeed = function () {
+        return Math.floor((Math.random() * 10000000) + 1000);
+    };
+
+    var isIE8OrLower = function () {
+        var isIE = function () {
+            var ua = navigator.userAgent.toLowerCase(),
+            isOpera = (ua.indexOf('opera') != -1);
+            return ua.indexOf('msie') != -1 && !isOpera && (ua.indexOf('webtv') == -1);
+        },
+
+        IEMajorVersion = function () {
+            var m = /MSIE\s*(\d*)/.exec(navigator.userAgent),
+                v = (m && m[1]) || -1;
+            if (isNaN(parseInt(v, 10))) {
+                v = -1;
+            }
+            return v;
+        };
+
+        return isIE() && IEMajorVersion() <= 8;
+    };
+
+    var isInBlockedUrls = function () {
+        if (expoConfig.debug) return false;
+        var IPEurl = location.href;
+
+        for (var i = 0; i < expoConfig.blockedUrls.length; i++) {
+            if (IPEurl.toLowerCase().indexOf(expoConfig.blockedUrls[i].toLowerCase()) > -1) {
+                return true;
+            }
+        }
+        return false;
+    };
+
+    var isInEnabledDomains = function () {
+        if (expoConfig.debug) return true;
+        var IPEurl = location.href;
+
+        for (var i = 0; i < expoConfig.enabledDomains.length; i++) {
+            if (IPEurl.toLowerCase().indexOf(expoConfig.enabledDomains[i].toLowerCase()) > -1) {
+                return true;
+            }
+        }
+        return false;
+    };
+
+
+    var getIframeSessionIdStorage = function (e) {
+
+        try {
+
+            var n = document.getElementById(config.frameId).contentWindow;
+            n.postMessage(JSON.stringify({
+                key: e, method: "getfeedbacksession"
+            }), "*");
+        }
+        catch (ex) { }
+    };
+
+    var setIframeSessionStorage = function (e, t) {
+        try {
+            var n = document.getElementById(config.frameId).contentWindow;
+
+            n.postMessage(JSON.stringify({
+                key: e,
+                method: "setsession",
+                data: t
+            }), "*");
+        } catch (ex) { }
+    };
+
+    function post(jsObj) {
+
+        try {
+            var xhr = null;
+            if (new XMLHttpRequest().withCredentials === undefined) {
+                xhr = new XDomainRequest();
+            } else {
+                xhr = new XMLHttpRequest();
+            }
+            var url = config.artUrl + '?projectId=' + jsObj.projectId + '&sessionId=' + jsObj.sessionId + '&visitorId=' + jsObj.visitorId;
+            if (jsObj.onlyTrack) {
+                url += "&onlyTrack=true";
+            }
+            url += '&url=' + jsObj.url
+            xhr.open('GET', url, true);
+            xhr.onload = function (res) {
+                if (xhr.responseText !== "" && xhr.responseText.indexOf("exception") == -1) {
+                    var result = xhr.responseText.replace('<string xmlns="http://schemas.microsoft.com/2003/10/Serialization/">', '');
+                    result = result.replace('</string>', '');
+                    if (result.indexOf('"') == 0) {
+                        result = JSON.parse(result);
+                    }
+                    try {
+                        var returnData = JSON.parse(result);
+                        if (returnData.P == "1" || returnData.P == "0") {
+                            //trackPage("artResult:" + returnData.P);
+                            setARTTargeted();
+                            //trackpage
+                            //trackPage("artModel");
+                            //var artDiceRoll = Math.random();
+                            //if (artDiceRoll > config.artThreshold && canLaunchEXPO()) {
+                            //    //show expo
+                            //    launchEXPO();
+                            //}
+
+							// Inject DoubleClick Floodlight Tag
+							if (returnData.P == "1")
+							{								
+								var axel = Math.random() + "";
+								var a = axel * 10000000000000;
+								var iframe;
+								iframe = document.createElement('iframe');
+								iframe.src = 'https://4053494.fls.doubleclick.net/activityi;src=4053494;type=comca517;cat=dbm_r0;dc_lat=;dc_rdid=;tag_for_child_directed_treatment=;ord=' + a + '?';
+								iframe.style.display = 'none';
+								iframe.style.width = '1';
+								iframe.style.height = '1';
+								iframe.frameBorder = 0;
+								document.body.appendChild(iframe);
+							}
+                        }
+                    }
+                    catch (err) { }
+                }
+            }
+            xhr.send();
+        } catch (err) { }
+    }
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+
+
+    var init = function (projectId, branchRate) {
+        var artExpoHtml = '<iframe name="Customer Feedback Survey" title="Customer Feedback Survey" id="expoFrm" border="0" allowtransparency="true" frameborder="0" scrolling="no" seamless="seamless"></iframe> <div id="expoIconSection"> <button id="expoBtnClose" class="btnClose" tabindex="4" title="' + expoConfig.locale.closeTitle + '" aria-label="' + expoConfig.locale.closeTitle + '">&#57347;</button> <div class="expoTitle"><p>' + expoConfig.locale.questionLabel + '</p></div> <div id="expoQuestions"> <div class="expoIcon happy" title="' + expoConfig.locale.satisfactoryTitle + '" tabindex="1" id="TagId-222573" data-tagid="222573"><span></span></div> <div class="expoIcon neutral" title="' + expoConfig.locale.neutralTitle + '" tabindex="2" id="TagId-372" data-tagid="372"><span></span></div> <div class="expoIcon unhappy" title="' + expoConfig.locale.unsatisfactoryTitle + '" tabindex="3" id="TagId-222574" data-tagid="222574"><span></span></div><div style="clear: both"></div></div><img id="countInvites" src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" width="0" height="0" style="display:none;border: 0px; margin-top: -10px;" alt="" /><img id="expoclick" src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" width="0" height="0" style="display:none;border: 0px; margin-top: -10px;" alt="" /></div>';
+        var artExpoCSS = "@font-face{font-family:collectionEvo;src:url(" + expoConfig.fontPath + "collectionEvo.eot);src:url(" + expoConfig.fontPath + "collectionEvo.eot?#iefix) format('embedded-opentype'),url(" + expoConfig.fontPath + "collectionEvo.woff) format('woff'),url(" + expoConfig.fontPath + "collectionEvo.ttf) format('truetype'),url(" + expoConfig.fontPath + "collectionEvo.svg#collectionEvo) format('svg');font-weight:400;font-style:normal}@font-face{font-family:'Open Sans';font-style:normal;font-weight:400;src:url(" + expoConfig.fontPath + "opensans400.eot);src:local('Open Sans'),local('OpenSans'),url(" + expoConfig.fontPath + "opensans400.eot) format('embedded-opentype'),url(" + expoConfig.fontPath + "opensans400.woff) format('woff'),url(" + expoConfig.fontPath + "opensans400.ttf) format('truetype')}@font-face{font-family:'Open Sans';font-style:normal;font-weight:700;src:url(" + expoConfig.fontPath + "opensans600.eot);src:local('Open Sans Semibold'),local('OpenSans-Semibold'),url(" + expoConfig.fontPath + "opensans600.eot) format('embedded-opentype'),url(" + expoConfig.fontPath + "opensans600.woff) format('woff'),url(" + expoConfig.fontPath + "opensans600.ttf) format('truetype')}@font-face{font-family:'Open Sans';font-style:italic;font-weight:400;src:url(" + expoConfig.fontPath + "opensans400i.eot);src:local('Open Sans Italic'),local('OpenSans-Italic'),url(" + expoConfig.fontPath + "opensans400i.eot) format('embedded-opentype'),url(" + expoConfig.fontPath + "opensans400i.woff) format('woff'),url(" + expoConfig.fontPath + "opensans400i.ttf) format('truetype')}@font-face{font-family:'Open Sans';font-style:italic;font-weight:700;src:url(" + expoConfig.fontPath + "opensans600i.eot);src:local('Open Sans Semibold Italic'),local('OpenSans-SemiboldItalic'),url(" + expoConfig.fontPath + "opensans600i.eot) format('embedded-opentype'),url(" + expoConfig.fontPath + "opensans600i.woff) format('woff'),url(" + expoConfig.fontPath + "opensans600i.ttf) format('truetype')}#artEXPO{border-top:3px solid #bbb;border-left:3px solid #bbb;border-right:3px solid #bbb;box-shadow:rgba(0,0,0,.2) 2px 2px 2px -1px;color:#42423F;position:fixed;bottom:0;right:20px;z-index:99999;background-color:#fff;width:110px;word-wrap:break-word;display:none;font-size:10px}#artEXPO .expoTitle{font-family:'Open Sans',Arial,Helvetica,sans-serif;font-size:10px;padding:2px 4px;margin:0;font-weight:700}#artEXPO .expoTitle p{margin:0 0 0 2px}#artEXPO .expoIcon{float:left;border-radius:.3rem;width:31px;height:31px;padding:0!important;margin:1px 1px 5px;display:block;text-align:left;line-height:1;border:none;table-layout:fixed;cursor:pointer}#artEXPO #expoIcon:hover{opacity:.7}#artEXPO #expoQuestions{padding:0 5px}#artEXPO .expoIcon.happy span:before{content:url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB8AAAAfCAYAAAAfrhY5AAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAGtAAABrQBjMpl8wAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAAG0SURBVEiJ7ZZNLwNRFIbfS1hogkSbWBB7NOIfUNLaIBKJH8Of8LFmjViS2NhjU1rWFAvxsWRDHou50sntnWlnNFZ9V53z3nOfc2amZ67UUUf/KJM0AchLKkoak5SV9CKpJunUGFNtb3l16ApwQ7wqwHI7oRngqAnU1SGQaQf4MiH4Vxd/KiBFxw13IC14xbPZI3ACfDrxD+DY+q6W0sDdl+sRGLDerOPN2Pgg8OR4laTgvKeD45DfC3zZ+BfQE/JOPLkTPk5XBL/kiRWAggVtSOq28W5J60APMCdptsX9/AK2PNX/6jthHGAzSedDMbVF5UTFpWAStpzw5lwjqSzpIwYg65ft+rBek8DvneuyMWZa0l4T+K5dd+XE75rk1QVMep7bPJAler5XgSGg6PHGW4bbAirOBjVgBMgBO8C7jb8D27awURoHjXsXWoIvezqoAaXQmv7Q7wXgwZOzGMWI/Z4TzOZVj3Ul6UzSs6RhBf/tKc+6A2PMWnyb0fAMwdcpjc6BvlRgp4DDhOD9P4OdIpZofAldXRPzjF2lOcNNKJjVY5JyCs5wdwrOcLdJ9+uoo3/TD8PHpkrAXcOpAAAAAElFTkSuQmCC')}#artEXPO .expoIcon.neutral span:before{content:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB8AAAAfCAYAAAAfrhY5AAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAGtAAABrQBjMpl8wAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAAGdSURBVEiJ7ZZPK0RRHIbfM0wWRoSVPwllIytNiQW+w+ytyc5CluI7WFNWlI2IsLWQFCmzI/9Gk4VpNsQ8FpecbufOzJmZrOatu7jvPe/v+d177ukcqa66/lHGZzDQIGlc0qSkLkmtkl4kpSXtGWPua94hEAfmgWeK6whI1hLcC5yXgNoqAKtArFpwP/DkAba1AXhNqw1OAFcVgn+1VCl8xVHsGjgm+LS2ssAu8Bby34EBX3AHkA8VOiH42wUsWH4O6P7xh4HPUG7dFz7jeOtV63nS8i9C2UwolwOafOCbDvgtMAS0ANuW/wWkgEZgzpEDmHJxGiP4fRFeWlJBkr2MYpK2HH6pepGDOyL8Ypli67rTJ/BapFAlyvrA72oMd9aLgh84vAlJ7WVca6FcTtKpCxL1w+1KyktKWF5KwQ5WSiOh+x1jzEcZuT8ByxHLxkfvwKAX+AfeDFxWCV/0BlsNVLOrrVPprmY10AOceUALBFNWHdhqIA7MAo8loIfAaLl1fc9wMUljkqYVnOHaJGUk3UjaN8Y8+NSrq65/1TdkKltviI1u/QAAAABJRU5ErkJggg==)}#artEXPO .expoIcon.unhappy span:before{content:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB8AAAAfCAYAAAAfrhY5AAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAGtAAABrQBjMpl8wAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAAHUSURBVEiJ7ZY9axRRFIafWTaLaKPZpDHBWhEUglpYKPgF9jaKpBPUX5C/YCFoRFQQ/AG2sokiISgEuyAWoq6LNpqogWAlJPpY7C4MN/fuZiYh1b7le+a8z5mPe+/AQAPtoLIiF6sZcAw4C4wBdeAH0AIaWZY1t31CtaJOqi176416ZjvBdXWuDzTUQ3Voq+BR9WNBcFczarUseEh9VRLc1XRZ+M1IWFOdVdcCf1V9pv4M/H/qiaLgmroUBL1Va536lZy/ph7s+GPq76DvRVH4hchdP87Vx3P+UtC7GPStq6NF4Lcj8BV1Qt2lPghqN9Sqekn9G+m9XAT+NBLQVSy8l686FeNUEvx6j9lSPSkfYCRmptbhSo+g98AjYAFYBcaBi8A1YG+i51fMTE37NeHfAo4CT4B9wEngDzAFHAJeJ/q+JPyNUs9H3tvdTm3Sjet5UT2i7lHfBbV1NfrYU/Ca+j0X8E3dbfprVl1WD6inAv/5psG5Aa7nAhrqfvVTAtzVPfWw7WWp7R3ueBl4VZ3vA+unO4XBuQFG1A8lwQ3Lnmq5AYbVlwXB993qeZ4boKJeVT/3gS6opzebW+YfbgI4R3tzqQPLQBOYybKsVSRvoIF2VP8BUmI8pF3uw7gAAAAASUVORK5CYII=)}#artEXPO .happy{background-color: #2e5b02;background:linear-gradient(to bottom,#4e880e 0,#2e5b02 100%)}#artEXPO .neutral{background-color:#003983;background:linear-gradient(to bottom,#73a3dc 0,#003983 100%)}#artEXPO .unhappy{background-color:#892315;background:linear-gradient(to bottom,#b53d32 0,#892315 100%)}#artEXPO #expoBtnClose{background-color:transparent;color:#b5b5b5;font-size:.9rem;position:absolute;top:0;right:0;width:1.3rem;height:1.3rem;font-family:collectionEvo;content:attr(data-icon);speak:none;font-weight:400;font-variant:normal;text-transform:none;line-height:1;border-radius:50%;text-align:center;cursor:pointer;border:none;padding:0}iframe#expoFrm{display:none;border:none;height:100px; background-color: transparent}#artEXPOiFrame { border: none; background-color: transparent }";
+        var mainIFrame = document.createElement('iframe');
+
+        mainIFrame.setAttribute('id', 'artEXPOiFrame');
+        mainIFrame.setAttribute('name', 'CustomerFeedbackSurvey');
+        mainIFrame.setAttribute('title', 'CustomerFeedbackSurvey');
+        mainIFrame.setAttribute('frameborder', '0');
+        mainIFrame.setAttribute('border', '0');
+        mainIFrame.setAttribute('scrolling', 'no');
+        mainIFrame.setAttribute('seamless', 'seamless');
+        mainIFrame.setAttribute('allowtransparency', 'true');
+        mainIFrame.setAttribute('style', 'position: fixed; overflow-y: hidden; z-index: 99999; right: 0; bottom: 0; width: 136px; height: 58px; background-color: transparent; border: none; margin: 0; display: none; line-height: normal');
+        document.body.appendChild(mainIFrame);
+
+        var raceCondWatch = setInterval(function () {
+            if (document.getElementById('artEXPOiFrame') !== null) {
+                var mainIFrameWindow = (mainIFrame.contentWindow.document || mainIFrame.contentDocument);
+                var mainDiv = mainIFrameWindow.createElement('div');
+
+                mainDiv.className = 'cc-container';
+                mainDiv.setAttribute('id', 'artEXPO');
+                mainDiv.innerHTML = artExpoHtml;
+                mainIFrameWindow.body.appendChild(mainDiv);
+
+                var mainCss = mainIFrameWindow.createElement('style');
+                mainCss.type = 'text/css';
+                mainCss.setAttribute('id', 'ipEXPOStyle');
+                mainIFrameWindow.head.appendChild(mainCss);
+
+                if (mainCss.styleSheet) {
+                    mainCss.styleSheet.cssText = artExpoCSS;
+                }
+                else {
+                    mainCss.appendChild(mainIFrameWindow.createTextNode(artExpoCSS));
+                }
+
+                clearInterval(raceCondWatch);
+            }
+        }, 5);
+
+        domAddEvent(window, "message", function (e) {
+
+            if (-1 !== e.origin.indexOf(config.iFrameUrl)) {
+                var result = JSON.parse(e.data);
+                if (result.source == "feedback") {
+                    var sessionId = result.value;
+                    if (!sessionId) {
+                        iPerceptions.Wrapper.setAndGetCookie("ipe_s");
+                        setIframeSessionStorage("ipe_s", getSessionCookie());
+                    }
+                    else {
+                        CC("ipe_s", sessionId);
+                    }
+                    processBranch();
+                }
+            }
+            else if (e.origin == expoConfig.protocol + '//' + expoConfig.serverUrl) {
+                var mainIframe = document.getElementById('artEXPOiFrame');
+
+                var data = "";
+                try {
+                    data = JSON.parse(e.data);
+                }
+                catch (ex) {
+                    return;
+                }
+
+                if (!data || !data.msg) {
+                    return;
+                }
+
+                if (data.msg === "closeDialog") {
+                    if (expoConfig.container != null) expoConfig.container.style.display = "none";
+                    setEXPOFinished();
+                }
+
+                if (data.msg === "resize") {
+                    var width = 0;
+                    if (!isNaN(data.width)) {
+                        width = parseInt(data.width);
+                    }
+
+                    var height = 0;
+                    if (!isNaN(data.height)) {
+                        height = parseInt(data.height);
+                    }
+
+                    if (height == 0 && width == 0) {
+                        expoConfig.container.style.display = 'none';
+                        setEXPOFinished();
+                    }
+                    if (expoConfig.iframe != null) {
+                        expoConfig.iframe.style.width = width + 'px';
+                        expoConfig.iframe.style.height = height + 'px';
+                    }
+                    mainIframe.style.width = (width + 56) + 'px';
+                    mainIframe.style.height = (height + 4) + 'px';
+                }
+            }
+
+        });
+
+        setSurvey(projectId);
+        setBranchRate(branchRate);
+        setDomain(window.location.hostname);
+
+        var visitor = getVisitorId();
+        if (visitor === null) { createVisitorId(); }
+
+        if (typeof iPerceptions.Wrapper != 'undefined' && iPerceptions.Wrapper.device === "desktop") //to be removed after mobile launch
+        {
+            getIframeSessionIdStorage("ipe_s");
+        }
+    };
+
+    function processBranch() {
+        ARTEXPO.branch = getBranch();
+
+        if (ARTEXPO.branch == null) {
+            var diceRoll = Math.random() * 10000 / config.volumePercent;
+            console.log("Branch Dice Roll:" + diceRoll);
+            //if (diceRoll < config.branchRate) {
+            //  saveBranch(config.branchBehavioral);
+            //}
+            //else
+            if (diceRoll <= 50) {
+                saveBranch(config.branchART);
+            }
+            else {
+                saveBranch(-1);
+                return;
+            }
+        }
+
+        if (ARTEXPO.branch >= -1) {
+            if (getPageViewedCount() == 1) {
+                trackPage("sessionStart"); //first page
+            }
+            else {
+                trackPage(""); //subsequent page
+            }
+
+            if (canLaunchEXPO()) {
+                //if (ARTEXPO.branch == config.branchBehavioral) {
+                launchBehavioral();
+                //}
+                if (ARTEXPO.branch == config.branchART) {
+                    launchART();
+                }
+            }
+        }
+    }
+
+    function getPageViewedCount() {
+        if (typeof iPerceptions.Wrapper != 'undefined') {
+            return iPerceptions.Wrapper.getPageViewed();
+        }
+        else {
+            return 0;
+        }
+    }
+
+    function getBranch() {
+        return localStorage.getItem(branchKey);
+    }
+
+    function saveBranch(branch) {
+        ARTEXPO.branch = branch;
+        localStorage.setItem(branchKey, branch);
+    }
+
+    function launchBehavioral() {
+        if (getPageViewedCount() > 1 && canLaunchEXPO()) {
+            //check 7 seconds delay or scroll detected
+            setTimeout(function () {
+                scrollEvent();
+            }, config.behavioralDelaySeconds * 1000);
+            if (expoConfig.scrollTrigger == true) {
+                domAddEvent(window, "scroll", scrollEvent);
+            }
+        }
+    };
+
+    function launchART() {
+
+        if (getPageViewedCount() >= config.artPages) {
+            if (sessionStorage.getItem(targetedKey) == "true") {
+                //var artDiceRoll = Math.random() * 100;
+                //if (artDiceRoll > config.artThreshold && canLaunchEXPO()) {
+                //    setTimeout(function () {
+                //        launchEXPO();
+                //    }, 1000);
+                //}
+            }
+            else {
+                // call ART model
+                postART(false);
+            }
+        }
+        else {
+            // only track 
+            postART(true);
+        }
+    };
+
+    var postART = function (onlyTrack) {
+        var url = window.location.href;
+        if (typeof (window.testUrl) != 'undefined') {
+            url = window.testUrl;
+        }
+        var postData = {
+            projectId: 125404,
+            url: encodeURIComponent(url),
+            sessionId: getSessionCookie(),
+            visitorId: getVisitorId(),
+            onlyTrack: onlyTrack
+        };
+
+        post(postData);
+    }
+
+    var scrollEvent = function () {
+        if (canLaunchEXPO()) {
+            var diceRoll = Math.random() * 100;
+            console.log("Behavioral Dice Roll:" + diceRoll);
+
+            if (diceRoll < config.behavioralInviteRate) {
+                launchEXPO();
+                trackPage("behavioral");
+            }
+        }
+        window.removeEventListener("scroll", scrollEvent, true);
+    }
+
+    function canLaunchEXPO() {
+        return !config.onlyHarvest && !isSurveyLaunched && !isIE8OrLower() && !isInBlockedUrls() && isInEnabledDomains() && canReInvite();
+    }
+
+    function launchEXPO() {
+
+        try {
+
+            var mainIframe = document.getElementById('artEXPOiFrame');
+            var iconSection = mainIframe.contentWindow.document.getElementById('expoIconSection');
+            var iconBtns = mainIframe.contentWindow.document.getElementById('expoQuestions').getElementsByTagName('div');
+
+            mainIframe.style.display = 'block';
+
+            expoConfig.iframe = mainIframe.contentWindow.document.getElementById('expoFrm');
+            expoConfig.container = mainIframe.contentWindow.document.getElementById('artEXPO');
+
+            for (var i = 0; i < iconBtns.length; i++) {
+                domAddEvent(iconBtns[i], "click", function (e) {
+                    var visitorId = getVisitorId();
+                    var sessionId = getSessionCookie();
+
+                    mainIframe.style.width = "340px";
+                    mainIframe.style.height = "110px";
+
+                    e = e || window.event;
+                    var evtTarget = e.target || e.srcElement;
+                    var elemTagId = evtTarget.parentNode.getAttribute('data-tagid');
+                    if (elemTagId == null || typeof elemTagId == 'undefined') {
+                        elemTagId = evtTarget.getAttribute('data-tagid');
+                    }
+
+                    var trackImg = mainIframe.contentWindow.document.getElementById('countInvites');
+                    if (trackImg !== null) {
+                        trackImg.setAttribute('src', expoConfig.trackingImgPath + '?surveyID=' + expoConfig.projectId + '&siteID=1&langID=' + expoConfig.langId + '&traceID=4&seed=' + generateRandomSeed());
+                    }
+
+                    var track = "vs=1&sid=" + sessionId + "&vid=" + visitorId + "&tkid=" + window.iperceptionskey + "&url=" + encodeURIComponent(location.href) + "&events=" + "&data=" + "&title=" + encodeURIComponent(document.title) + "&scroll=";
+                    if (config.harvestAll) {
+                        track += "&ha=1";
+                    }
+
+                    var expoclickImg = mainIframe.contentWindow.document.getElementById('expoclick');
+                    if (expoclickImg !== null) {
+                        expoclickImg.setAttribute("src", window.location.protocol + config.trackingUrl + track);
+                    }
+
+                    var hv3 = "";
+                    //add hv3 value for collection, can be removed
+                    if (typeof s !== "undefined" && typeof s.prop50 !== "undefined") {
+                        hv3 = "&hv3=clientSessionID~" + s.prop50.toString();
+                    }
+
+                    var theUrl = "hv1=VisitorID~" + visitorId + "&hv2=SessionId~" + sessionId + hv3 +
+                        "&pid=1&lid=" + expoConfig.langId + "&loc=STUDY&cD=90&rF=False&iType=1&rn=" + expoConfig.projectId + "&domainname=0&hs1=102214&hs2=104039&noSS=1&m=tf&skipstart=true&hc=" + elemTagId + "&referrer=" + encodeURIComponent(location.href) + "&gt=" + expoConfig.gotoQuestionId;
+                    expoConfig.iframe.setAttribute('src', window.location.protocol + "//" + expoConfig.serverUrl + "/?" + theUrl);
+                    expoConfig.iframe.style.display = "block";
+                    expoConfig.container.style.width = "300px";
+                    iconSection.style.display = "none";
+
+                });
+            }
+
+            domAddEvent(mainIframe.contentWindow.document.getElementById('expoBtnClose'), "click", function (e) {
+                expoConfig.container.style.display = "none";
+                setEXPOFinished();
+            });
+
+            expoConfig.container.style.display = "block";
+            isSurveyLaunched = true;
+
+            var trackImg = mainIframe.contentWindow.document.getElementById('countInvites');
+            if (trackImg !== null) {
+                trackImg.setAttribute('src', expoConfig.trackingImgPath + '?surveyID=' + expoConfig.projectId + '&siteID=1&langID=' + expoConfig.langId + '&traceID=2&seed=' + generateRandomSeed());
+            }
+        }
+        catch (e) { }
+    }
+
+
+    function setEXPOFinished() {
+        CC("IPE" + expoConfig.projectId, "IPE" + expoConfig.projectId, 1);
+    }
+
+    function canReInvite() {
+        return !(RC("IPE" + expoConfig.projectId) == "IPE" + expoConfig.projectId);
+    }
+
+    function setARTTargeted() {
+        sessionStorage.setItem(targetedKey, true);
+    }
+
+
+    return {
+        init: init
+    };
+
+})();
+ÿª›Q6Ä      YpQYpQ=µ*xYcb   N    :http://az452423.vo.msecnd.net/custom-content-collection/artexpo_122423_v34.js necko:classified 1 strongly-framed 1 request-method GET response-head HTTP/1.1 200 OK
+Accept-Ranges: bytes
+Content-MD5: gpau2FLPdEqtzvM1RraD5g==
+Content-Type: application/octet-stream
+Date: Sun, 30 Apr 2017 18:11:49 GMT
+Etag: 0x8D44953DA69A15D
+Last-Modified: Mon, 30 Jan 2017 21:06:26 GMT
+Server: ECAcc (lga/134A)
+X-Cache: HIT
+x-ms-blob-type: BlockBlob
+x-ms-lease-status: unlocked
+x-ms-request-id: 7ff959e5-0001-0036-794b-be68dd000000
+x-ms-version: 2009-09-19
+Content-Length: 31383
+ original-response-headers Accept-Ranges: bytes
+Content-MD5: gpau2FLPdEqtzvM1RraD5g==
+Content-Type: application/octet-stream
+Date: Sun, 30 Apr 2017 18:11:49 GMT
+Etag: 0x8D44953DA69A15D
+Last-Modified: Mon, 30 Jan 2017 21:06:26 GMT
+Server: ECAcc (lga/134A)
+X-Cache: HIT
+x-ms-blob-type: BlockBlob
+x-ms-lease-status: unlocked
+x-ms-request-id: 7ff959e5-0001-0036-794b-be68dd000000
+x-ms-version: 2009-09-19
+Content-Length: 31383
+ net-response-time-onstart 13 net-response-time-onstop 16   z—

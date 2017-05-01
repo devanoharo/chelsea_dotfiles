@@ -1,0 +1,29 @@
+{
+    "auto-launch": false,
+    "enableJSON_API": true,
+    "miniUseScrollVolume": false,
+    "minToTray": false,
+    "nativeFrame": true,
+    "savePage": true,
+    "scrollLyrics": true,
+    "theme": false,
+    "themeColor": "#2196F3",
+    "themeType": "FULL",
+    "preventDisplaySleep": false,
+    "enableWin10MediaService": false,
+    "uuid": "ef9c3ac3-3ffa-4f26-b13e-74bb162bb9f7",
+    "fullscreen": false,
+    "maximized": false,
+    "position": [
+        1922,
+        57
+    ],
+    "size": [
+        1916,
+        1021
+    ],
+    "lastPage": "https://play.google.com/music/listen#/home",
+    "welcomed": "4.3.0",
+    "gpmdp_connect_email": "devanoharo@gmail.com",
+    "audiooutput": "Default"
+}

@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<gconf>
+	<entry name="Realtek_ALC3232" mtime="1493494772" type="string">
+		<stringvalue>Realtek ALC3232</stringvalue>
+	</entry>
+	<entry name="Intel_Broadwell_HDMI" mtime="1493494772" type="string">
+		<stringvalue>Intel Broadwell HDMI</stringvalue>
+	</entry>
+</gconf>

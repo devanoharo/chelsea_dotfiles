@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<gconf>
+	<entry name="Intel_Broadwell_HDMI-IEC958" mtime="1493494734" type="string">
+		<stringvalue>IEC958</stringvalue>
+	</entry>
+</gconf>
